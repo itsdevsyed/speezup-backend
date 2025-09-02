@@ -1,14 +1,14 @@
+import cookie from '@fastify/cookie';
+import dotenv from 'dotenv';
 import Fastify from 'fastify';
 import mercurius from 'mercurius';
-import dotenv from 'dotenv';
-import cookie from '@fastify/cookie';
-import { redis } from './utils/redis';
-import { otpRoutes } from './modules/auth/otpRoutes';
-import { otpWorker } from './modules/auth/otpQueue';
-import { testQueue } from './queues/testQueue';
-import jwtPlugin from './plugins/jwt';
-import { userRoutes } from './modules/user/userRoutes';
-import responseWrapper from './plugins/responseWrapper';
+import { otpWorker } from './src/modules/auth/otpQueue';
+import { otpRoutes } from './src/modules/auth/otpRoutes';
+import { userRoutes } from './src/modules/user/userRoutes';
+import jwtPlugin from './src/plugins/jwt';
+import responseWrapper from './src/plugins/responseWrapper';
+import { testQueue } from './src/queues/testQueue';
+import { redis } from './src/utils/redis';
 
 dotenv.config();
 
@@ -16,6 +16,9 @@ const fastify = Fastify({
   logger: true,
   bodyLimit: 1048576,
 });
+
+
+
 
 // Register plugins
 fastify.register(cookie, {
@@ -84,5 +87,6 @@ const start = async () => {
     process.exit(1);
   }
 };
+
 
 start();

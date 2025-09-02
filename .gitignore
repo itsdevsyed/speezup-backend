@@ -10,6 +10,8 @@ prisma/dev.db
 .idea/
 *.swp
 *.swo
-
+# Prisma
+/prisma/generated/
+node_modules/.prisma/
 
 pnpm-lock.yaml

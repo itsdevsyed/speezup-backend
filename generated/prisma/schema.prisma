@@ -1,0 +1,229 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+// -----------------------------------------------------------------------------
+// Core Enums
+// -----------------------------------------------------------------------------
+// A clear, predefined list of possible user roles.
+enum UserRole {
+  CUSTOMER
+  STORE_OWNER
+  DELIVERY_PARTNER
+}
+
+// A clear, predefined list of possible order statuses.
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  PROCESSING
+  READY_FOR_PICKUP
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+// -----------------------------------------------------------------------------
+// User Models
+// -----------------------------------------------------------------------------
+// The single source of truth for all users on the platform.
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String?   @unique
+  name      String?
+  phone     String?   @unique
+  role      UserRole  @default(CUSTOMER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  // Relations
+  refreshTokens   RefreshToken[]
+  addresses       Address[]
+  orders          Order[]
+  cartItems       CartItem[]
+  stores          Store[]
+  deliveryProfile Delivery?
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  device    String? // e.g. "iPhone 14", "Chrome on Mac"
+  ipAddress String? // track IP
+  expiresAt DateTime
+  isRevoked Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+// An Address can be a user's delivery address or a store's location.
+model Address {
+  id         Int    @id @default(autoincrement())
+  street     String
+  city       String
+  state      String
+  postalCode String
+  country    String
+  latitude   Float
+  longitude  Float
+
+  // Many-to-one: An address belongs to a single user.
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  // One-to-one: An address can be the location of a single store.
+  store Store?
+}
+
+// -----------------------------------------------------------------------------
+// Store Models
+// -----------------------------------------------------------------------------
+// Represents a single store (dark store or marketplace partner).
+model Store {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  phone       String?
+  status      String    @default("OPEN")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  // A Store is managed by a single User (Store Owner).
+  owner   User @relation(fields: [ownerId], references: [id])
+  ownerId Int
+
+  // One-to-one: A Store has one Address for its physical location.
+  address   Address @relation(fields: [addressId], references: [id])
+  addressId Int     @unique
+
+  // Many-to-many: A Store can belong to multiple categories.
+  storeCategories StoreCategory[]
+
+  // Relations
+  products Product[]
+  orders   Order[]
+}
+
+// NEW: This model is for categorizing stores (e.g., Groceries, Bakery, Restaurants).
+model StoreCategory {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  // Many-to-many: This category can be applied to multiple stores.
+  stores Store[]
+}
+
+// A Product is an item available in a store.
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  imageUrl    String?
+  price       Decimal   @db.Decimal(10, 2) // Using Decimal for currency.
+  stock       Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  // Relations
+  store      Store    @relation(fields: [storeId], references: [id])
+  storeId    Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+}
+
+// This model is for categorizing products (e.g., "Dairy", "Snacks").
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  products Product[]
+}
+
+// -----------------------------------------------------------------------------
+// Delivery Models
+// -----------------------------------------------------------------------------
+// Represents a Delivery Partner's profile and status.
+model Delivery {
+  id                       Int      @id @default(autoincrement())
+  currentLocationLatitude  Float?
+  currentLocationLongitude Float?
+  status                   String   @default("AVAILABLE")
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  // One-to-one: This profile belongs to a single user.
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
+
+  // Relations
+  assignedOrders Order[] // Orders assigned to this delivery partner.
+}
+
+// -----------------------------------------------------------------------------
+// Order & Cart Models
+// -----------------------------------------------------------------------------
+// The main transactional table for a customer order.
+model Order {
+  id          Int         @id @default(autoincrement())
+  totalPrice  Decimal     @db.Decimal(10, 2)
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+  acceptedAt  DateTime?
+  deliveredAt DateTime?
+
+  // Relations
+  user              User      @relation(fields: [userId], references: [id])
+  userId            Int
+  store             Store     @relation(fields: [storeId], references: [id])
+  storeId           Int
+  deliveryPartner   Delivery? @relation(fields: [deliveryPartnerId], references: [id])
+  deliveryPartnerId Int?
+
+  items OrderItem[]
+}
+
+// Represents an item within a specific order.
+model OrderItem {
+  id       Int     @id @default(autoincrement())
+  quantity Int
+  price    Decimal @db.Decimal(10, 2)
+
+  // Relations
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+// Represents a single item in a user's temporary shopping cart.
+model CartItem {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
+  // Relations
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  @@unique([userId, productId])
+}

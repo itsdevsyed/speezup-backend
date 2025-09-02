@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.*.local
+dist/
+build/
+prisma/migrations/
+prisma/dev.db
+*.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+pnpm-lock.yaml

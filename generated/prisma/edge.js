@@ -258,7 +258,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "F:\\Speezy\\Backend\\generated\\prisma",
+      "value": "F:\\Speezy\\speezup-backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -272,11 +272,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "F:\\Speezy\\Backend\\prisma\\schema.prisma",
+    "sourceFilePath": "F:\\Speezy\\speezup-backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",

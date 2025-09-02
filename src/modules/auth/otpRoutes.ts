@@ -5,8 +5,16 @@ import { saveOtp, verify, OTP_TTl } from '../../utils/otpStore';
 import { otpQueue } from './otpQueue';
 import { canRequestOtp } from '../../utils/rateLimiter';
 import { incrementMetric } from '../../utils/metrics';
+import crypto from "crypto";
+import { sendOtpSchema, verifyOtpSchema } from '../../plugins/validation';
 
 const prisma = new PrismaClient();
+
+
+function hashToken(token: string): string {
+  return crypto.createHash("sha256").update(token).digest("hex");
+}
+
 
 export async function otpRoutes(fastify: FastifyInstance) {
   // Decorator for success responses
@@ -16,8 +24,16 @@ export async function otpRoutes(fastify: FastifyInstance) {
 
   // --- Send OTP ---
   fastify.post('/otp/send', async (request, reply) => {
-    const { phone } = request.body as { phone: string };
+    const parseResult = sendOtpSchema.safeParse(request.body);
+    if (!parseResult.success) {
+      // Access the first validation error
+      const firstError = parseResult.error.issues[0];
+      return reply.status(400).send({ success: false, message: firstError.message });
+    }
+
+    const { phone } = parseResult.data;
     if (!(await canRequestOtp(phone))) {
+
       return reply.status(429).send({ success: false, message: 'Too many requests' });
     }
 
@@ -32,6 +48,13 @@ export async function otpRoutes(fastify: FastifyInstance) {
 
   // --- Verify OTP ---
   fastify.post('/otp/verify', async (request, reply) => {
+    const parseResult = verifyOtpSchema.safeParse(request.body);
+
+    if (!parseResult.success) {
+
+      const firstError = parseResult;
+      return reply.status(400).send({ success: false, message: firstError });
+    }
     const { phone, otp } = request.body as { phone: string; otp: string };
     if (!phone || !otp) return reply.status(400).send({ success: false, message: 'OTP missing' });
 
@@ -46,10 +69,11 @@ export async function otpRoutes(fastify: FastifyInstance) {
 
     const accessToken = fastify.jwt.sign({ userId: user.id, phone }, { expiresIn: '15m' });
     const refreshToken = fastify.jwt.sign({ userId: user.id, phone }, { expiresIn: '7d' });
+    const hashedToken = hashToken(refreshToken);
 
     await prisma.refreshToken.create({
       data: {
-        token: refreshToken,
+        token: hashedToken,
         userId: user.id,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       },

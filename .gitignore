@@ -24,6 +24,6 @@ prisma/dev.db
 # Prisma generated client
 /prisma/generated/
 node_modules/.prisma/
-
+/generated/
 # Lock files (optional if using pnpm)
 pnpm-lock.yaml

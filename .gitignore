@@ -1,17 +1,29 @@
+# Node modules
 node_modules/
+
+# Environment files
 .env
 .env.*.local
+
+# Build / output folders
 dist/
 build/
-prisma/migrations/
-prisma/dev.db
-*.db
+
+# Editor folders
 .vscode/
 .idea/
+
+# Swap files
 *.swp
 *.swo
-# Prisma
+
+# Database files
+prisma/dev.db
+*.db
+
+# Prisma generated client
 /prisma/generated/
 node_modules/.prisma/
-/generated/
+
+# Lock files (optional if using pnpm)
 pnpm-lock.yaml

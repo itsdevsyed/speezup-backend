@@ -1,16 +1,17 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma-client"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
-}
 
-// -----------------------------------------------------------------------------
-// Core Enums
-// -----------------------------------------------------------------------------
+
+
+
 enum UserRole {
   CUSTOMER
   STORE_OWNER
@@ -27,9 +28,6 @@ enum OrderStatus {
   CANCELLED
 }
 
-// -----------------------------------------------------------------------------
-// User Models
-// -----------------------------------------------------------------------------
 model User {
   id              Int           @id @default(autoincrement())
   email           String?       @unique
@@ -40,7 +38,6 @@ model User {
   updatedAt       DateTime      @updatedAt
   deletedAt       DateTime?
 
-  // Relations
   addresses       Address[]     // A user can have multiple addresses
   orders          Order[]
   cartItems       CartItem[]
@@ -59,11 +56,9 @@ model Address {
   latitude    Float
   longitude   Float
 
-  // Many-to-one
   user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int?
 
-  // One-to-one (Store)
   store       Store?
 }
 
@@ -78,9 +73,7 @@ model RefreshToken {
   userId    Int
 }
 
-// -----------------------------------------------------------------------------
-// Store Models
-// -----------------------------------------------------------------------------
+
 model Store {
   id              Int             @id @default(autoincrement())
   name            String
@@ -110,9 +103,6 @@ model StoreCategory {
   stores  Store[] @relation("StoreCategoriesOnStores")
 }
 
-// -----------------------------------------------------------------------------
-// Product & Category
-// -----------------------------------------------------------------------------
 model Product {
   id          Int        @id @default(autoincrement())
   name        String
@@ -144,9 +134,6 @@ model Category {
   products    Product[]
 }
 
-// -----------------------------------------------------------------------------
-// Delivery Models
-// -----------------------------------------------------------------------------
 model Delivery {
   id                       Int      @id @default(autoincrement())
   currentLocationLatitude  Float?
@@ -155,16 +142,13 @@ model Delivery {
   createdAt                DateTime @default(now())
   updatedAt                DateTime @updatedAt
 
-  // One-to-one with User
   user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                   Int      @unique
 
   assignedOrders           Order[]
 }
 
-// -----------------------------------------------------------------------------
-// Orders & Cart
-// -----------------------------------------------------------------------------
+
 model Order {
   id                Int          @id @default(autoincrement())
   totalPrice        Decimal      @db.Decimal(10, 2)

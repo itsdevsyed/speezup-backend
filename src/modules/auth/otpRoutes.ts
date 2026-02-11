@@ -1,14 +1,11 @@
 import { FastifyInstance } from "fastify";
 import { generateOtp } from "../../utils/otp";
-import { saveOtp, verify, OTP_TTl } from "../../utils/otpStore";
+import { saveOtp, verifyOtp, OTP_TTL } from "../../utils/otpStore";
 import { otpQueue } from "./otpQueue";
 import { canRequestOtp } from "../../utils/rateLimiter";
 import { incrementMetric } from "../../utils/metrics";
 
 export const otpRoutes = async (fastify: FastifyInstance) => {
-  // ---------------------
-  // SEND OTP
-  // ---------------------
   fastify.post("/send", async (request, reply) => {
     try {
       const { phone } = request.body as { phone: string };
@@ -37,7 +34,7 @@ export const otpRoutes = async (fastify: FastifyInstance) => {
       return reply.send({
         success: true,
         message: "OTP sent successfully",
-        ttl: OTP_TTl,
+        ttl: OTP_TTL,
       });
     } catch (error) {
       fastify.log.error(error);
@@ -47,9 +44,7 @@ export const otpRoutes = async (fastify: FastifyInstance) => {
     }
   });
 
-  // ---------------------
-  // VERIFY OTP
-  // ---------------------
+
   fastify.post("/verify", async (request, reply) => {
     try {
       const { phone, otp } = request.body as { phone: string; otp: string };
@@ -60,7 +55,7 @@ export const otpRoutes = async (fastify: FastifyInstance) => {
           .send({ success: false, message: "Phone and OTP required" });
       }
 
-      const isValid = await verify(phone, otp);
+      const isValid = await verifyOtp(phone, otp);
       if (!isValid) {
         return reply
           .code(400)

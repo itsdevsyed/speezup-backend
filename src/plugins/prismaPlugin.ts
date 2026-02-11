@@ -1,5 +1,5 @@
 import fp from "fastify-plugin";
-import { PrismaClient } from "../../generated/prisma";
+import { PrismaClient } from "../../generated/prisma-client/client";
 
 const prisma = new PrismaClient();
 

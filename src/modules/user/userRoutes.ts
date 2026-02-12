@@ -1,12 +1,24 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
+import { JwtPayload } from "../../types/fastify";
 
 export const userRoutes = async (fastify: FastifyInstance) => {
+  // Get current user details
+  fastify.get(
+    "/me",
+    {
+      preHandler: [fastify.authenticate],
+    },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const user = request.user as JwtPayload;
+      const { prisma } = fastify;
 
-  fastify.get('/user/me', {
-    preValidation: [fastify.authenticate]
-  }, async (request: any, reply) => {
-    const userPhone = request.user.phone; // extracted from JWT
-    return { success: true, user: { phone: userPhone } };
-  });
+      // Optionally fetch full user details from DB
+      const userDetails = await prisma.user.findUnique({
+        where: { id: user.userId },
+        select: { id: true, phone: true, name: true, role: true },
+      });
 
+      return reply.send({ success: true, user: userDetails });
+    }
+  );
 };

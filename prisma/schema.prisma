@@ -10,8 +10,6 @@ datasource db {
 
 
 
-
-
 enum UserRole {
   CUSTOMER
   STORE_OWNER
@@ -20,46 +18,66 @@ enum UserRole {
 
 enum OrderStatus {
   PENDING
+  PAYMENT_PENDING
+  CONFIRMED
   ACCEPTED
   PROCESSING
   READY_FOR_PICKUP
   OUT_FOR_DELIVERY
   DELIVERED
   CANCELLED
+  FAILED
 }
 
-model User {
-  id              Int           @id @default(autoincrement())
-  email           String?       @unique
-  name            String?
-  phone           String?       @unique
-  role            UserRole      @default(CUSTOMER)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  deletedAt       DateTime?
+enum DeliveryStatus {
+  AVAILABLE
+  BUSY
+  OFFLINE
+}
 
-  addresses       Address[]     // A user can have multiple addresses
+enum PaymentStatus {
+  INITIATED
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String?   @unique
+  name      String?
+  phone     String?   @unique
+  role      UserRole  @default(CUSTOMER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  addresses       Address[]
   orders          Order[]
   cartItems       CartItem[]
   stores          Store[]
   deliveryProfile Delivery?
   refreshTokens   RefreshToken[]
+  idempotencyKeys IdempotencyKey[]
 }
 
+
 model Address {
-  id          Int       @id @default(autoincrement())
-  street      String
-  city        String
-  state       String
-  postalCode  String
-  country     String
-  latitude    Float
-  longitude   Float
+  id         Int    @id @default(autoincrement())
+  street     String
+  city       String
+  state      String
+  postalCode String
+  country    String
+  latitude   Float
+  longitude  Float
 
-  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int?
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int?
 
-  store       Store?
+  store Store?
 }
 
 model RefreshToken {
@@ -68,128 +86,168 @@ model RefreshToken {
   expiresAt DateTime
   createdAt DateTime @default(now())
 
-  // Relation
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 }
+
+
+
+model IdempotencyKey {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  createdAt DateTime @default(now())
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+
 
 
 model Store {
-  id              Int             @id @default(autoincrement())
-  name            String
-  description     String?
-  phone           String?
-  status          String          @default("OPEN")
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  deletedAt       DateTime?
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  phone       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 
-  // Relations
-  owner           User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId         Int
+  owner   User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId Int
 
-  addressId       Int             @unique
-  address         Address         @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId Int     @unique
+  address   Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
 
-  storeCategories StoreCategory[] @relation("StoreCategoriesOnStores")
-  products        Product[]
-  orders          Order[]
+  products Product[]
+  orders   Order[]
+
+  @@index([ownerId])
 }
 
-model StoreCategory {
-  id      Int     @id @default(autoincrement())
-  name    String  @unique
 
-  stores  Store[] @relation("StoreCategoriesOnStores")
-}
 
 model Product {
-  id          Int        @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   description String?
   imageUrl    String?
-  price       Decimal     @db.Decimal(10, 2)
-  stock       Int
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  deletedAt   DateTime?
+  price       Decimal @db.Decimal(10, 2)
 
-  store       Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
-  storeId     Int
+  stock         Int
+  reservedStock Int @default(0) // for stock locking
 
-  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
-  cartItems   CartItem[]
-  orderItems  OrderItem[]
-}
+  store   Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId Int
 
-model Category {
-  id          Int        @id @default(autoincrement())
-  name        String     @unique
-  description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  cartItems  CartItem[]
+  orderItems OrderItem[]
 
-  products    Product[]
-}
-
-model Delivery {
-  id                       Int      @id @default(autoincrement())
-  currentLocationLatitude  Float?
-  currentLocationLongitude Float?
-  status                   String   @default("AVAILABLE")
-  createdAt                DateTime @default(now())
-  updatedAt                DateTime @updatedAt
-
-  user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId                   Int      @unique
-
-  assignedOrders           Order[]
+  @@index([storeId])
 }
 
 
-model Order {
-  id                Int          @id @default(autoincrement())
-  totalPrice        Decimal      @db.Decimal(10, 2)
-  status            OrderStatus  @default(PENDING)
-  createdAt         DateTime     @default(now())
-  acceptedAt        DateTime?
-  deliveredAt       DateTime?
-
-  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId            Int
-
-  store             Store        @relation(fields: [storeId], references: [id], onDelete: Cascade)
-  storeId           Int
-
-  deliveryPartner   Delivery?    @relation(fields: [deliveryPartnerId], references: [id], onDelete: SetNull)
-  deliveryPartnerId Int?
-
-  items             OrderItem[]
-}
-
-model OrderItem {
-  id         Int       @id @default(autoincrement())
-  quantity   Int
-  price      Decimal    @db.Decimal(10, 2)
-
-  order      Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderId    Int
-
-  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId  Int
-}
 
 model CartItem {
-  id        Int      @id @default(autoincrement())
-  quantity  Int
+  id       Int @id @default(autoincrement())
+  quantity Int
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
 
   @@unique([userId, productId])
+  @@index([userId])
+}
+
+
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  totalPrice Decimal     @db.Decimal(10, 2)
+  status     OrderStatus @default(PENDING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  store   Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId Int
+
+  deliveryPartner   Delivery? @relation(fields: [deliveryPartnerId], references: [id], onDelete: SetNull)
+  deliveryPartnerId Int?
+
+  payment       Payment?
+  items         OrderItem[]
+  statusHistory OrderStatusHistory[]
+
+  @@index([userId])
+  @@index([storeId])
+  @@index([status])
+}
+
+
+
+model OrderItem {
+  id       Int     @id @default(autoincrement())
+  quantity Int
+  price    Decimal @db.Decimal(10, 2)
+
+  productName  String
+  productImage String?
+
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId Int
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+}
+
+
+
+model Payment {
+  id          Int           @id @default(autoincrement())
+  status      PaymentStatus
+  providerRef String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId Int   @unique
+}
+
+
+model OrderStatusHistory {
+  id        Int         @id @default(autoincrement())
+  status    OrderStatus
+  changedAt DateTime    @default(now())
+
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId Int
+
+  @@index([orderId])
+}
+
+
+
+model Delivery {
+  id                       Int            @id @default(autoincrement())
+  currentLocationLatitude  Float?
+  currentLocationLongitude Float?
+  status                   DeliveryStatus @default(AVAILABLE)
+  createdAt                DateTime       @default(now())
+  updatedAt                DateTime       @updatedAt
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+
+  assignedOrders Order[]
 }

@@ -20,12 +20,34 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 export const OrderStatus = {
   PENDING: 'PENDING',
+  PAYMENT_PENDING: 'PAYMENT_PENDING',
+  CONFIRMED: 'CONFIRMED',
   ACCEPTED: 'ACCEPTED',
   PROCESSING: 'PROCESSING',
   READY_FOR_PICKUP: 'READY_FOR_PICKUP',
   OUT_FOR_DELIVERY: 'OUT_FOR_DELIVERY',
   DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED'
+  CANCELLED: 'CANCELLED',
+  FAILED: 'FAILED'
 } as const
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+
+
+export const DeliveryStatus = {
+  AVAILABLE: 'AVAILABLE',
+  BUSY: 'BUSY',
+  OFFLINE: 'OFFLINE'
+} as const
+
+export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus]
+
+
+export const PaymentStatus = {
+  INITIATED: 'INITIATED',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

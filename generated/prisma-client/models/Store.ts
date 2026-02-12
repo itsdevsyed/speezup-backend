@@ -43,7 +43,6 @@ export type StoreMinAggregateOutputType = {
   name: string | null
   description: string | null
   phone: string | null
-  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -56,7 +55,6 @@ export type StoreMaxAggregateOutputType = {
   name: string | null
   description: string | null
   phone: string | null
-  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -69,7 +67,6 @@ export type StoreCountAggregateOutputType = {
   name: number
   description: number
   phone: number
-  status: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -96,7 +93,6 @@ export type StoreMinAggregateInputType = {
   name?: true
   description?: true
   phone?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -109,7 +105,6 @@ export type StoreMaxAggregateInputType = {
   name?: true
   description?: true
   phone?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -122,7 +117,6 @@ export type StoreCountAggregateInputType = {
   name?: true
   description?: true
   phone?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -222,7 +216,6 @@ export type StoreGroupByOutputType = {
   name: string
   description: string | null
   phone: string | null
-  status: string
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -258,7 +251,6 @@ export type StoreWhereInput = {
   name?: Prisma.StringFilter<"Store"> | string
   description?: Prisma.StringNullableFilter<"Store"> | string | null
   phone?: Prisma.StringNullableFilter<"Store"> | string | null
-  status?: Prisma.StringFilter<"Store"> | string
   createdAt?: Prisma.DateTimeFilter<"Store"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Store"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Store"> | Date | string | null
@@ -266,7 +258,6 @@ export type StoreWhereInput = {
   addressId?: Prisma.IntFilter<"Store"> | number
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   address?: Prisma.XOR<Prisma.AddressScalarRelationFilter, Prisma.AddressWhereInput>
-  storeCategories?: Prisma.StoreCategoryListRelationFilter
   products?: Prisma.ProductListRelationFilter
   orders?: Prisma.OrderListRelationFilter
 }
@@ -276,7 +267,6 @@ export type StoreOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -284,7 +274,6 @@ export type StoreOrderByWithRelationInput = {
   addressId?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   address?: Prisma.AddressOrderByWithRelationInput
-  storeCategories?: Prisma.StoreCategoryOrderByRelationAggregateInput
   products?: Prisma.ProductOrderByRelationAggregateInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
 }
@@ -298,14 +287,12 @@ export type StoreWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Store"> | string
   description?: Prisma.StringNullableFilter<"Store"> | string | null
   phone?: Prisma.StringNullableFilter<"Store"> | string | null
-  status?: Prisma.StringFilter<"Store"> | string
   createdAt?: Prisma.DateTimeFilter<"Store"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Store"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Store"> | Date | string | null
   ownerId?: Prisma.IntFilter<"Store"> | number
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   address?: Prisma.XOR<Prisma.AddressScalarRelationFilter, Prisma.AddressWhereInput>
-  storeCategories?: Prisma.StoreCategoryListRelationFilter
   products?: Prisma.ProductListRelationFilter
   orders?: Prisma.OrderListRelationFilter
 }, "id" | "addressId">
@@ -315,7 +302,6 @@ export type StoreOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -336,7 +322,6 @@ export type StoreScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Store"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Store"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Store"> | string | null
-  status?: Prisma.StringWithAggregatesFilter<"Store"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Store"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Store"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Store"> | Date | string | null
@@ -348,13 +333,11 @@ export type StoreCreateInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   address: Prisma.AddressCreateNestedOneWithoutStoreInput
-  storeCategories?: Prisma.StoreCategoryCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
 }
@@ -364,13 +347,11 @@ export type StoreUncheckedCreateInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   ownerId: number
   addressId: number
-  storeCategories?: Prisma.StoreCategoryUncheckedCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
 }
@@ -379,13 +360,11 @@ export type StoreUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   address?: Prisma.AddressUpdateOneRequiredWithoutStoreNestedInput
-  storeCategories?: Prisma.StoreCategoryUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
 }
@@ -395,13 +374,11 @@ export type StoreUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   addressId?: Prisma.IntFieldUpdateOperationsInput | number
-  storeCategories?: Prisma.StoreCategoryUncheckedUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
 }
@@ -411,7 +388,6 @@ export type StoreCreateManyInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -423,7 +399,6 @@ export type StoreUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -434,7 +409,6 @@ export type StoreUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -462,7 +436,6 @@ export type StoreCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -481,7 +454,6 @@ export type StoreMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -494,7 +466,6 @@ export type StoreMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -587,44 +558,6 @@ export type StoreUncheckedUpdateOneWithoutAddressNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StoreUpdateToOneWithWhereWithoutAddressInput, Prisma.StoreUpdateWithoutAddressInput>, Prisma.StoreUncheckedUpdateWithoutAddressInput>
 }
 
-export type StoreCreateNestedManyWithoutStoreCategoriesInput = {
-  create?: Prisma.XOR<Prisma.StoreCreateWithoutStoreCategoriesInput, Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput> | Prisma.StoreCreateWithoutStoreCategoriesInput[] | Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput[]
-  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput | Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput[]
-  connect?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-}
-
-export type StoreUncheckedCreateNestedManyWithoutStoreCategoriesInput = {
-  create?: Prisma.XOR<Prisma.StoreCreateWithoutStoreCategoriesInput, Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput> | Prisma.StoreCreateWithoutStoreCategoriesInput[] | Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput[]
-  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput | Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput[]
-  connect?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-}
-
-export type StoreUpdateManyWithoutStoreCategoriesNestedInput = {
-  create?: Prisma.XOR<Prisma.StoreCreateWithoutStoreCategoriesInput, Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput> | Prisma.StoreCreateWithoutStoreCategoriesInput[] | Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput[]
-  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput | Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput[]
-  upsert?: Prisma.StoreUpsertWithWhereUniqueWithoutStoreCategoriesInput | Prisma.StoreUpsertWithWhereUniqueWithoutStoreCategoriesInput[]
-  set?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  disconnect?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  delete?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  connect?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  update?: Prisma.StoreUpdateWithWhereUniqueWithoutStoreCategoriesInput | Prisma.StoreUpdateWithWhereUniqueWithoutStoreCategoriesInput[]
-  updateMany?: Prisma.StoreUpdateManyWithWhereWithoutStoreCategoriesInput | Prisma.StoreUpdateManyWithWhereWithoutStoreCategoriesInput[]
-  deleteMany?: Prisma.StoreScalarWhereInput | Prisma.StoreScalarWhereInput[]
-}
-
-export type StoreUncheckedUpdateManyWithoutStoreCategoriesNestedInput = {
-  create?: Prisma.XOR<Prisma.StoreCreateWithoutStoreCategoriesInput, Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput> | Prisma.StoreCreateWithoutStoreCategoriesInput[] | Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput[]
-  connectOrCreate?: Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput | Prisma.StoreCreateOrConnectWithoutStoreCategoriesInput[]
-  upsert?: Prisma.StoreUpsertWithWhereUniqueWithoutStoreCategoriesInput | Prisma.StoreUpsertWithWhereUniqueWithoutStoreCategoriesInput[]
-  set?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  disconnect?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  delete?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  connect?: Prisma.StoreWhereUniqueInput | Prisma.StoreWhereUniqueInput[]
-  update?: Prisma.StoreUpdateWithWhereUniqueWithoutStoreCategoriesInput | Prisma.StoreUpdateWithWhereUniqueWithoutStoreCategoriesInput[]
-  updateMany?: Prisma.StoreUpdateManyWithWhereWithoutStoreCategoriesInput | Prisma.StoreUpdateManyWithWhereWithoutStoreCategoriesInput[]
-  deleteMany?: Prisma.StoreScalarWhereInput | Prisma.StoreScalarWhereInput[]
-}
-
 export type StoreCreateNestedOneWithoutProductsInput = {
   create?: Prisma.XOR<Prisma.StoreCreateWithoutProductsInput, Prisma.StoreUncheckedCreateWithoutProductsInput>
   connectOrCreate?: Prisma.StoreCreateOrConnectWithoutProductsInput
@@ -657,12 +590,10 @@ export type StoreCreateWithoutOwnerInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   address: Prisma.AddressCreateNestedOneWithoutStoreInput
-  storeCategories?: Prisma.StoreCategoryCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
 }
@@ -672,12 +603,10 @@ export type StoreUncheckedCreateWithoutOwnerInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   addressId: number
-  storeCategories?: Prisma.StoreCategoryUncheckedCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
 }
@@ -716,7 +645,6 @@ export type StoreScalarWhereInput = {
   name?: Prisma.StringFilter<"Store"> | string
   description?: Prisma.StringNullableFilter<"Store"> | string | null
   phone?: Prisma.StringNullableFilter<"Store"> | string | null
-  status?: Prisma.StringFilter<"Store"> | string
   createdAt?: Prisma.DateTimeFilter<"Store"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Store"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Store"> | Date | string | null
@@ -728,12 +656,10 @@ export type StoreCreateWithoutAddressInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
-  storeCategories?: Prisma.StoreCategoryCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
 }
@@ -743,12 +669,10 @@ export type StoreUncheckedCreateWithoutAddressInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   ownerId: number
-  storeCategories?: Prisma.StoreCategoryUncheckedCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
 }
@@ -773,12 +697,10 @@ export type StoreUpdateWithoutAddressInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
-  storeCategories?: Prisma.StoreCategoryUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
 }
@@ -788,77 +710,23 @@ export type StoreUncheckedUpdateWithoutAddressInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
-  storeCategories?: Prisma.StoreCategoryUncheckedUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
-}
-
-export type StoreCreateWithoutStoreCategoriesInput = {
-  name: string
-  description?: string | null
-  phone?: string | null
-  status?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  owner: Prisma.UserCreateNestedOneWithoutStoresInput
-  address: Prisma.AddressCreateNestedOneWithoutStoreInput
-  products?: Prisma.ProductCreateNestedManyWithoutStoreInput
-  orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
-}
-
-export type StoreUncheckedCreateWithoutStoreCategoriesInput = {
-  id?: number
-  name: string
-  description?: string | null
-  phone?: string | null
-  status?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  ownerId: number
-  addressId: number
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
-}
-
-export type StoreCreateOrConnectWithoutStoreCategoriesInput = {
-  where: Prisma.StoreWhereUniqueInput
-  create: Prisma.XOR<Prisma.StoreCreateWithoutStoreCategoriesInput, Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput>
-}
-
-export type StoreUpsertWithWhereUniqueWithoutStoreCategoriesInput = {
-  where: Prisma.StoreWhereUniqueInput
-  update: Prisma.XOR<Prisma.StoreUpdateWithoutStoreCategoriesInput, Prisma.StoreUncheckedUpdateWithoutStoreCategoriesInput>
-  create: Prisma.XOR<Prisma.StoreCreateWithoutStoreCategoriesInput, Prisma.StoreUncheckedCreateWithoutStoreCategoriesInput>
-}
-
-export type StoreUpdateWithWhereUniqueWithoutStoreCategoriesInput = {
-  where: Prisma.StoreWhereUniqueInput
-  data: Prisma.XOR<Prisma.StoreUpdateWithoutStoreCategoriesInput, Prisma.StoreUncheckedUpdateWithoutStoreCategoriesInput>
-}
-
-export type StoreUpdateManyWithWhereWithoutStoreCategoriesInput = {
-  where: Prisma.StoreScalarWhereInput
-  data: Prisma.XOR<Prisma.StoreUpdateManyMutationInput, Prisma.StoreUncheckedUpdateManyWithoutStoreCategoriesInput>
 }
 
 export type StoreCreateWithoutProductsInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   address: Prisma.AddressCreateNestedOneWithoutStoreInput
-  storeCategories?: Prisma.StoreCategoryCreateNestedManyWithoutStoresInput
   orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
 }
 
@@ -867,13 +735,11 @@ export type StoreUncheckedCreateWithoutProductsInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   ownerId: number
   addressId: number
-  storeCategories?: Prisma.StoreCategoryUncheckedCreateNestedManyWithoutStoresInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
 }
 
@@ -897,13 +763,11 @@ export type StoreUpdateWithoutProductsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   address?: Prisma.AddressUpdateOneRequiredWithoutStoreNestedInput
-  storeCategories?: Prisma.StoreCategoryUpdateManyWithoutStoresNestedInput
   orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
 }
 
@@ -912,13 +776,11 @@ export type StoreUncheckedUpdateWithoutProductsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   addressId?: Prisma.IntFieldUpdateOperationsInput | number
-  storeCategories?: Prisma.StoreCategoryUncheckedUpdateManyWithoutStoresNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
 }
 
@@ -926,13 +788,11 @@ export type StoreCreateWithoutOrdersInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   address: Prisma.AddressCreateNestedOneWithoutStoreInput
-  storeCategories?: Prisma.StoreCategoryCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
 }
 
@@ -941,13 +801,11 @@ export type StoreUncheckedCreateWithoutOrdersInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   ownerId: number
   addressId: number
-  storeCategories?: Prisma.StoreCategoryUncheckedCreateNestedManyWithoutStoresInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
 }
 
@@ -971,13 +829,11 @@ export type StoreUpdateWithoutOrdersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   address?: Prisma.AddressUpdateOneRequiredWithoutStoreNestedInput
-  storeCategories?: Prisma.StoreCategoryUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
 }
 
@@ -986,13 +842,11 @@ export type StoreUncheckedUpdateWithoutOrdersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   addressId?: Prisma.IntFieldUpdateOperationsInput | number
-  storeCategories?: Prisma.StoreCategoryUncheckedUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
 }
 
@@ -1001,7 +855,6 @@ export type StoreCreateManyOwnerInput = {
   name: string
   description?: string | null
   phone?: string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1012,12 +865,10 @@ export type StoreUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.AddressUpdateOneRequiredWithoutStoreNestedInput
-  storeCategories?: Prisma.StoreCategoryUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
 }
@@ -1027,12 +878,10 @@ export type StoreUncheckedUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addressId?: Prisma.IntFieldUpdateOperationsInput | number
-  storeCategories?: Prisma.StoreCategoryUncheckedUpdateManyWithoutStoresNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
 }
@@ -1042,52 +891,9 @@ export type StoreUncheckedUpdateManyWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  addressId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type StoreUpdateWithoutStoreCategoriesInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
-  address?: Prisma.AddressUpdateOneRequiredWithoutStoreNestedInput
-  products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
-}
-
-export type StoreUncheckedUpdateWithoutStoreCategoriesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ownerId?: Prisma.IntFieldUpdateOperationsInput | number
-  addressId?: Prisma.IntFieldUpdateOperationsInput | number
-  products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
-}
-
-export type StoreUncheckedUpdateManyWithoutStoreCategoriesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ownerId?: Prisma.IntFieldUpdateOperationsInput | number
   addressId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -1097,13 +903,11 @@ export type StoreUncheckedUpdateManyWithoutStoreCategoriesInput = {
  */
 
 export type StoreCountOutputType = {
-  storeCategories: number
   products: number
   orders: number
 }
 
 export type StoreCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  storeCategories?: boolean | StoreCountOutputTypeCountStoreCategoriesArgs
   products?: boolean | StoreCountOutputTypeCountProductsArgs
   orders?: boolean | StoreCountOutputTypeCountOrdersArgs
 }
@@ -1116,13 +920,6 @@ export type StoreCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
    * Select specific fields to fetch from the StoreCountOutputType
    */
   select?: Prisma.StoreCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * StoreCountOutputType without action
- */
-export type StoreCountOutputTypeCountStoreCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.StoreCategoryWhereInput
 }
 
 /**
@@ -1145,7 +942,6 @@ export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name?: boolean
   description?: boolean
   phone?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1153,7 +949,6 @@ export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   addressId?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
-  storeCategories?: boolean | Prisma.Store$storeCategoriesArgs<ExtArgs>
   products?: boolean | Prisma.Store$productsArgs<ExtArgs>
   orders?: boolean | Prisma.Store$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.StoreCountOutputTypeDefaultArgs<ExtArgs>
@@ -1164,7 +959,6 @@ export type StoreSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   description?: boolean
   phone?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1179,7 +973,6 @@ export type StoreSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   description?: boolean
   phone?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1194,7 +987,6 @@ export type StoreSelectScalar = {
   name?: boolean
   description?: boolean
   phone?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1202,11 +994,10 @@ export type StoreSelectScalar = {
   addressId?: boolean
 }
 
-export type StoreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "phone" | "status" | "createdAt" | "updatedAt" | "deletedAt" | "ownerId" | "addressId", ExtArgs["result"]["store"]>
+export type StoreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "phone" | "createdAt" | "updatedAt" | "deletedAt" | "ownerId" | "addressId", ExtArgs["result"]["store"]>
 export type StoreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
-  storeCategories?: boolean | Prisma.Store$storeCategoriesArgs<ExtArgs>
   products?: boolean | Prisma.Store$productsArgs<ExtArgs>
   orders?: boolean | Prisma.Store$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.StoreCountOutputTypeDefaultArgs<ExtArgs>
@@ -1225,7 +1016,6 @@ export type $StorePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
     address: Prisma.$AddressPayload<ExtArgs>
-    storeCategories: Prisma.$StoreCategoryPayload<ExtArgs>[]
     products: Prisma.$ProductPayload<ExtArgs>[]
     orders: Prisma.$OrderPayload<ExtArgs>[]
   }
@@ -1234,7 +1024,6 @@ export type $StorePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     name: string
     description: string | null
     phone: string | null
-    status: string
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1636,7 +1425,6 @@ export interface Prisma__StoreClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   address<T extends Prisma.AddressDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AddressDefaultArgs<ExtArgs>>): Prisma.Prisma__AddressClient<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  storeCategories<T extends Prisma.Store$storeCategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$storeCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoreCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   products<T extends Prisma.Store$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orders<T extends Prisma.Store$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Store$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1672,7 +1460,6 @@ export interface StoreFieldRefs {
   readonly name: Prisma.FieldRef<"Store", 'String'>
   readonly description: Prisma.FieldRef<"Store", 'String'>
   readonly phone: Prisma.FieldRef<"Store", 'String'>
-  readonly status: Prisma.FieldRef<"Store", 'String'>
   readonly createdAt: Prisma.FieldRef<"Store", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Store", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Store", 'DateTime'>
@@ -2071,30 +1858,6 @@ export type StoreDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Stores to delete.
    */
   limit?: number
-}
-
-/**
- * Store.storeCategories
- */
-export type Store$storeCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the StoreCategory
-   */
-  select?: Prisma.StoreCategorySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the StoreCategory
-   */
-  omit?: Prisma.StoreCategoryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.StoreCategoryInclude<ExtArgs> | null
-  where?: Prisma.StoreCategoryWhereInput
-  orderBy?: Prisma.StoreCategoryOrderByWithRelationInput | Prisma.StoreCategoryOrderByWithRelationInput[]
-  cursor?: Prisma.StoreCategoryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.StoreCategoryScalarFieldEnum | Prisma.StoreCategoryScalarFieldEnum[]
 }
 
 /**

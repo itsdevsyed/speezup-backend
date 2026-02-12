@@ -33,30 +33,25 @@ export type Address = Prisma.AddressModel
  */
 export type RefreshToken = Prisma.RefreshTokenModel
 /**
+ * Model IdempotencyKey
+ * 
+ */
+export type IdempotencyKey = Prisma.IdempotencyKeyModel
+/**
  * Model Store
  * 
  */
 export type Store = Prisma.StoreModel
-/**
- * Model StoreCategory
- * 
- */
-export type StoreCategory = Prisma.StoreCategoryModel
 /**
  * Model Product
  * 
  */
 export type Product = Prisma.ProductModel
 /**
- * Model Category
+ * Model CartItem
  * 
  */
-export type Category = Prisma.CategoryModel
-/**
- * Model Delivery
- * 
- */
-export type Delivery = Prisma.DeliveryModel
+export type CartItem = Prisma.CartItemModel
 /**
  * Model Order
  * 
@@ -68,7 +63,17 @@ export type Order = Prisma.OrderModel
  */
 export type OrderItem = Prisma.OrderItemModel
 /**
- * Model CartItem
+ * Model Payment
  * 
  */
-export type CartItem = Prisma.CartItemModel
+export type Payment = Prisma.PaymentModel
+/**
+ * Model OrderStatusHistory
+ * 
+ */
+export type OrderStatusHistory = Prisma.OrderStatusHistoryModel
+/**
+ * Model Delivery
+ * 
+ */
+export type Delivery = Prisma.DeliveryModel

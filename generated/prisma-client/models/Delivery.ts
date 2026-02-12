@@ -44,7 +44,7 @@ export type DeliveryMinAggregateOutputType = {
   id: number | null
   currentLocationLatitude: number | null
   currentLocationLongitude: number | null
-  status: string | null
+  status: $Enums.DeliveryStatus | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: number | null
@@ -54,7 +54,7 @@ export type DeliveryMaxAggregateOutputType = {
   id: number | null
   currentLocationLatitude: number | null
   currentLocationLongitude: number | null
-  status: string | null
+  status: $Enums.DeliveryStatus | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: number | null
@@ -207,7 +207,7 @@ export type DeliveryGroupByOutputType = {
   id: number
   currentLocationLatitude: number | null
   currentLocationLongitude: number | null
-  status: string
+  status: $Enums.DeliveryStatus
   createdAt: Date
   updatedAt: Date
   userId: number
@@ -240,7 +240,7 @@ export type DeliveryWhereInput = {
   id?: Prisma.IntFilter<"Delivery"> | number
   currentLocationLatitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   currentLocationLongitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
-  status?: Prisma.StringFilter<"Delivery"> | string
+  status?: Prisma.EnumDeliveryStatusFilter<"Delivery"> | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   userId?: Prisma.IntFilter<"Delivery"> | number
@@ -268,7 +268,7 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DeliveryWhereInput | Prisma.DeliveryWhereInput[]
   currentLocationLatitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   currentLocationLongitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
-  status?: Prisma.StringFilter<"Delivery"> | string
+  status?: Prisma.EnumDeliveryStatusFilter<"Delivery"> | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -297,7 +297,7 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Delivery"> | number
   currentLocationLatitude?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
   currentLocationLongitude?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
-  status?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
+  status?: Prisma.EnumDeliveryStatusWithAggregatesFilter<"Delivery"> | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Delivery"> | Date | string
   userId?: Prisma.IntWithAggregatesFilter<"Delivery"> | number
@@ -306,7 +306,7 @@ export type DeliveryScalarWhereWithAggregatesInput = {
 export type DeliveryCreateInput = {
   currentLocationLatitude?: number | null
   currentLocationLongitude?: number | null
-  status?: string
+  status?: $Enums.DeliveryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDeliveryProfileInput
@@ -317,7 +317,7 @@ export type DeliveryUncheckedCreateInput = {
   id?: number
   currentLocationLatitude?: number | null
   currentLocationLongitude?: number | null
-  status?: string
+  status?: $Enums.DeliveryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: number
@@ -327,7 +327,7 @@ export type DeliveryUncheckedCreateInput = {
 export type DeliveryUpdateInput = {
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDeliveryProfileNestedInput
@@ -338,7 +338,7 @@ export type DeliveryUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -349,7 +349,7 @@ export type DeliveryCreateManyInput = {
   id?: number
   currentLocationLatitude?: number | null
   currentLocationLongitude?: number | null
-  status?: string
+  status?: $Enums.DeliveryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: number
@@ -358,7 +358,7 @@ export type DeliveryCreateManyInput = {
 export type DeliveryUpdateManyMutationInput = {
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -367,7 +367,7 @@ export type DeliveryUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -454,14 +454,6 @@ export type DeliveryUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DeliveryUpdateToOneWithWhereWithoutUserInput, Prisma.DeliveryUpdateWithoutUserInput>, Prisma.DeliveryUncheckedUpdateWithoutUserInput>
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type DeliveryCreateNestedOneWithoutAssignedOrdersInput = {
   create?: Prisma.XOR<Prisma.DeliveryCreateWithoutAssignedOrdersInput, Prisma.DeliveryUncheckedCreateWithoutAssignedOrdersInput>
   connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutAssignedOrdersInput
@@ -478,10 +470,22 @@ export type DeliveryUpdateOneWithoutAssignedOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DeliveryUpdateToOneWithWhereWithoutAssignedOrdersInput, Prisma.DeliveryUpdateWithoutAssignedOrdersInput>, Prisma.DeliveryUncheckedUpdateWithoutAssignedOrdersInput>
 }
 
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type EnumDeliveryStatusFieldUpdateOperationsInput = {
+  set?: $Enums.DeliveryStatus
+}
+
 export type DeliveryCreateWithoutUserInput = {
   currentLocationLatitude?: number | null
   currentLocationLongitude?: number | null
-  status?: string
+  status?: $Enums.DeliveryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedOrders?: Prisma.OrderCreateNestedManyWithoutDeliveryPartnerInput
@@ -491,7 +495,7 @@ export type DeliveryUncheckedCreateWithoutUserInput = {
   id?: number
   currentLocationLatitude?: number | null
   currentLocationLongitude?: number | null
-  status?: string
+  status?: $Enums.DeliveryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeliveryPartnerInput
@@ -516,7 +520,7 @@ export type DeliveryUpdateToOneWithWhereWithoutUserInput = {
 export type DeliveryUpdateWithoutUserInput = {
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedOrders?: Prisma.OrderUpdateManyWithoutDeliveryPartnerNestedInput
@@ -526,7 +530,7 @@ export type DeliveryUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedOrders?: Prisma.OrderUncheckedUpdateManyWithoutDeliveryPartnerNestedInput
@@ -535,7 +539,7 @@ export type DeliveryUncheckedUpdateWithoutUserInput = {
 export type DeliveryCreateWithoutAssignedOrdersInput = {
   currentLocationLatitude?: number | null
   currentLocationLongitude?: number | null
-  status?: string
+  status?: $Enums.DeliveryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDeliveryProfileInput
@@ -545,7 +549,7 @@ export type DeliveryUncheckedCreateWithoutAssignedOrdersInput = {
   id?: number
   currentLocationLatitude?: number | null
   currentLocationLongitude?: number | null
-  status?: string
+  status?: $Enums.DeliveryStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: number
@@ -570,7 +574,7 @@ export type DeliveryUpdateToOneWithWhereWithoutAssignedOrdersInput = {
 export type DeliveryUpdateWithoutAssignedOrdersInput = {
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDeliveryProfileNestedInput
@@ -580,7 +584,7 @@ export type DeliveryUncheckedUpdateWithoutAssignedOrdersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   currentLocationLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   currentLocationLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -685,7 +689,7 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: number
     currentLocationLatitude: number | null
     currentLocationLongitude: number | null
-    status: string
+    status: $Enums.DeliveryStatus
     createdAt: Date
     updatedAt: Date
     userId: number
@@ -1117,7 +1121,7 @@ export interface DeliveryFieldRefs {
   readonly id: Prisma.FieldRef<"Delivery", 'Int'>
   readonly currentLocationLatitude: Prisma.FieldRef<"Delivery", 'Float'>
   readonly currentLocationLongitude: Prisma.FieldRef<"Delivery", 'Float'>
-  readonly status: Prisma.FieldRef<"Delivery", 'String'>
+  readonly status: Prisma.FieldRef<"Delivery", 'DeliveryStatus'>
   readonly createdAt: Prisma.FieldRef<"Delivery", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Delivery", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Delivery", 'Int'>

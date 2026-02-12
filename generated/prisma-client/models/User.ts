@@ -246,6 +246,7 @@ export type UserWhereInput = {
   stores?: Prisma.StoreListRelationFilter
   deliveryProfile?: Prisma.XOR<Prisma.DeliveryNullableScalarRelationFilter, Prisma.DeliveryWhereInput> | null
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  idempotencyKeys?: Prisma.IdempotencyKeyListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -263,6 +264,7 @@ export type UserOrderByWithRelationInput = {
   stores?: Prisma.StoreOrderByRelationAggregateInput
   deliveryProfile?: Prisma.DeliveryOrderByWithRelationInput
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
+  idempotencyKeys?: Prisma.IdempotencyKeyOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -283,6 +285,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   stores?: Prisma.StoreListRelationFilter
   deliveryProfile?: Prisma.XOR<Prisma.DeliveryNullableScalarRelationFilter, Prisma.DeliveryWhereInput> | null
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  idempotencyKeys?: Prisma.IdempotencyKeyListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -329,6 +332,7 @@ export type UserCreateInput = {
   stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -346,6 +350,7 @@ export type UserUncheckedCreateInput = {
   stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -362,6 +367,7 @@ export type UserUpdateInput = {
   stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -379,6 +385,7 @@ export type UserUncheckedUpdateInput = {
   stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -518,6 +525,20 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateNestedOneWithoutIdempotencyKeysInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIdempotencyKeysInput, Prisma.UserUncheckedCreateWithoutIdempotencyKeysInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIdempotencyKeysInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutIdempotencyKeysNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutIdempotencyKeysInput, Prisma.UserUncheckedCreateWithoutIdempotencyKeysInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutIdempotencyKeysInput
+  upsert?: Prisma.UserUpsertWithoutIdempotencyKeysInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutIdempotencyKeysInput, Prisma.UserUpdateWithoutIdempotencyKeysInput>, Prisma.UserUncheckedUpdateWithoutIdempotencyKeysInput>
+}
+
 export type UserCreateNestedOneWithoutStoresInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutStoresInput, Prisma.UserUncheckedCreateWithoutStoresInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutStoresInput
@@ -530,34 +551,6 @@ export type UserUpdateOneRequiredWithoutStoresNestedInput = {
   upsert?: Prisma.UserUpsertWithoutStoresInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStoresInput, Prisma.UserUpdateWithoutStoresInput>, Prisma.UserUncheckedUpdateWithoutStoresInput>
-}
-
-export type UserCreateNestedOneWithoutDeliveryProfileInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeliveryProfileInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutDeliveryProfileNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeliveryProfileInput
-  upsert?: Prisma.UserUpsertWithoutDeliveryProfileInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDeliveryProfileInput, Prisma.UserUpdateWithoutDeliveryProfileInput>, Prisma.UserUncheckedUpdateWithoutDeliveryProfileInput>
-}
-
-export type UserCreateNestedOneWithoutOrdersInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
-  upsert?: Prisma.UserUpsertWithoutOrdersInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrdersInput, Prisma.UserUpdateWithoutOrdersInput>, Prisma.UserUncheckedUpdateWithoutOrdersInput>
 }
 
 export type UserCreateNestedOneWithoutCartItemsInput = {
@@ -574,6 +567,34 @@ export type UserUpdateOneRequiredWithoutCartItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCartItemsInput, Prisma.UserUpdateWithoutCartItemsInput>, Prisma.UserUncheckedUpdateWithoutCartItemsInput>
 }
 
+export type UserCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.UserUpsertWithoutOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrdersInput, Prisma.UserUpdateWithoutOrdersInput>, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+}
+
+export type UserCreateNestedOneWithoutDeliveryProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeliveryProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDeliveryProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeliveryProfileInput
+  upsert?: Prisma.UserUpsertWithoutDeliveryProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDeliveryProfileInput, Prisma.UserUpdateWithoutDeliveryProfileInput>, Prisma.UserUncheckedUpdateWithoutDeliveryProfileInput>
+}
+
 export type UserCreateWithoutAddressesInput = {
   email?: string | null
   name?: string | null
@@ -587,6 +608,7 @@ export type UserCreateWithoutAddressesInput = {
   stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAddressesInput = {
@@ -603,6 +625,7 @@ export type UserUncheckedCreateWithoutAddressesInput = {
   stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAddressesInput = {
@@ -634,6 +657,7 @@ export type UserUpdateWithoutAddressesInput = {
   stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAddressesInput = {
@@ -650,6 +674,7 @@ export type UserUncheckedUpdateWithoutAddressesInput = {
   stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -665,6 +690,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
   stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -681,6 +707,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -712,6 +739,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
   stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -728,6 +756,89 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutIdempotencyKeysInput = {
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  addresses?: Prisma.AddressCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
+  deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
+  id?: number
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
+  deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutIdempotencyKeysInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutIdempotencyKeysInput, Prisma.UserUncheckedCreateWithoutIdempotencyKeysInput>
+}
+
+export type UserUpsertWithoutIdempotencyKeysInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutIdempotencyKeysInput, Prisma.UserUncheckedUpdateWithoutIdempotencyKeysInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutIdempotencyKeysInput, Prisma.UserUncheckedCreateWithoutIdempotencyKeysInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutIdempotencyKeysInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutIdempotencyKeysInput, Prisma.UserUncheckedUpdateWithoutIdempotencyKeysInput>
+}
+
+export type UserUpdateWithoutIdempotencyKeysInput = {
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  addresses?: Prisma.AddressUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
+  deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  addresses?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
+  deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoresInput = {
@@ -743,6 +854,7 @@ export type UserCreateWithoutStoresInput = {
   cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
   deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoresInput = {
@@ -759,6 +871,7 @@ export type UserUncheckedCreateWithoutStoresInput = {
   cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoresInput = {
@@ -790,6 +903,7 @@ export type UserUpdateWithoutStoresInput = {
   cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
   deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoresInput = {
@@ -806,162 +920,7 @@ export type UserUncheckedUpdateWithoutStoresInput = {
   cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutDeliveryProfileInput = {
-  email?: string | null
-  name?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  addresses?: Prisma.AddressCreateNestedManyWithoutUserInput
-  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
-  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
-  stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutDeliveryProfileInput = {
-  id?: number
-  email?: string | null
-  name?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
-  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
-  stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutDeliveryProfileInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
-}
-
-export type UserUpsertWithoutDeliveryProfileInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDeliveryProfileInput, Prisma.UserUncheckedUpdateWithoutDeliveryProfileInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutDeliveryProfileInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDeliveryProfileInput, Prisma.UserUncheckedUpdateWithoutDeliveryProfileInput>
-}
-
-export type UserUpdateWithoutDeliveryProfileInput = {
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  addresses?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
-  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
-  stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutDeliveryProfileInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  addresses?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
-  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
-  stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutOrdersInput = {
-  email?: string | null
-  name?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  addresses?: Prisma.AddressCreateNestedManyWithoutUserInput
-  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
-  stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
-  deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutOrdersInput = {
-  id?: number
-  email?: string | null
-  name?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
-  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
-  stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
-  deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutOrdersInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
-}
-
-export type UserUpsertWithoutOrdersInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutOrdersInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
-}
-
-export type UserUpdateWithoutOrdersInput = {
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  addresses?: Prisma.AddressUpdateManyWithoutUserNestedInput
-  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
-  stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
-  deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutOrdersInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  addresses?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
-  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
-  stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
-  deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCartItemsInput = {
@@ -977,6 +936,7 @@ export type UserCreateWithoutCartItemsInput = {
   stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCartItemsInput = {
@@ -993,6 +953,7 @@ export type UserUncheckedCreateWithoutCartItemsInput = {
   stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
   deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCartItemsInput = {
@@ -1024,6 +985,7 @@ export type UserUpdateWithoutCartItemsInput = {
   stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCartItemsInput = {
@@ -1040,6 +1002,171 @@ export type UserUncheckedUpdateWithoutCartItemsInput = {
   stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
   deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOrdersInput = {
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  addresses?: Prisma.AddressCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
+  deliveryProfile?: Prisma.DeliveryCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOrdersInput = {
+  id?: number
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
+  deliveryProfile?: Prisma.DeliveryUncheckedCreateNestedOneWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+}
+
+export type UserUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+}
+
+export type UserUpdateWithoutOrdersInput = {
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  addresses?: Prisma.AddressUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
+  deliveryProfile?: Prisma.DeliveryUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  addresses?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
+  deliveryProfile?: Prisma.DeliveryUncheckedUpdateOneWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDeliveryProfileInput = {
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  addresses?: Prisma.AddressCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  stores?: Prisma.StoreCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDeliveryProfileInput = {
+  id?: number
+  email?: string | null
+  name?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  addresses?: Prisma.AddressUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  stores?: Prisma.StoreUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDeliveryProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
+}
+
+export type UserUpsertWithoutDeliveryProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDeliveryProfileInput, Prisma.UserUncheckedUpdateWithoutDeliveryProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDeliveryProfileInput, Prisma.UserUncheckedCreateWithoutDeliveryProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDeliveryProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDeliveryProfileInput, Prisma.UserUncheckedUpdateWithoutDeliveryProfileInput>
+}
+
+export type UserUpdateWithoutDeliveryProfileInput = {
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  addresses?: Prisma.AddressUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  stores?: Prisma.StoreUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDeliveryProfileInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  addresses?: Prisma.AddressUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  stores?: Prisma.StoreUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1053,6 +1180,7 @@ export type UserCountOutputType = {
   cartItems: number
   stores: number
   refreshTokens: number
+  idempotencyKeys: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1061,6 +1189,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   cartItems?: boolean | UserCountOutputTypeCountCartItemsArgs
   stores?: boolean | UserCountOutputTypeCountStoresArgs
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+  idempotencyKeys?: boolean | UserCountOutputTypeCountIdempotencyKeysArgs
 }
 
 /**
@@ -1108,6 +1237,13 @@ export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Ty
   where?: Prisma.RefreshTokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountIdempotencyKeysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.IdempotencyKeyWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1124,6 +1260,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   stores?: boolean | Prisma.User$storesArgs<ExtArgs>
   deliveryProfile?: boolean | Prisma.User$deliveryProfileArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  idempotencyKeys?: boolean | Prisma.User$idempotencyKeysArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1168,6 +1305,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   stores?: boolean | Prisma.User$storesArgs<ExtArgs>
   deliveryProfile?: boolean | Prisma.User$deliveryProfileArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  idempotencyKeys?: boolean | Prisma.User$idempotencyKeysArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1182,6 +1320,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     stores: Prisma.$StorePayload<ExtArgs>[]
     deliveryProfile: Prisma.$DeliveryPayload<ExtArgs> | null
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+    idempotencyKeys: Prisma.$IdempotencyKeyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1592,6 +1731,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   stores<T extends Prisma.User$storesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$storesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deliveryProfile<T extends Prisma.User$deliveryProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deliveryProfileArgs<ExtArgs>>): Prisma.Prisma__DeliveryClient<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  idempotencyKeys<T extends Prisma.User$idempotencyKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$idempotencyKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IdempotencyKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2153,6 +2293,30 @@ export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
+}
+
+/**
+ * User.idempotencyKeys
+ */
+export type User$idempotencyKeysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the IdempotencyKey
+   */
+  select?: Prisma.IdempotencyKeySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the IdempotencyKey
+   */
+  omit?: Prisma.IdempotencyKeyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.IdempotencyKeyInclude<ExtArgs> | null
+  where?: Prisma.IdempotencyKeyWhereInput
+  orderBy?: Prisma.IdempotencyKeyOrderByWithRelationInput | Prisma.IdempotencyKeyOrderByWithRelationInput[]
+  cursor?: Prisma.IdempotencyKeyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.IdempotencyKeyScalarFieldEnum | Prisma.IdempotencyKeyScalarFieldEnum[]
 }
 
 /**

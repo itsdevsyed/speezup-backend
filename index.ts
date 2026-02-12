@@ -1,20 +1,18 @@
 import Fastify from "fastify";
 import mercurius from "mercurius";
+import dotenv from "dotenv";
 import { redis } from "./src/utils/redis";
 import { otpRoutes } from "./src/modules/auth/otpRoutes";
 import { otpWorker } from "./src/modules/auth/otpQueue";
 import { testQueue } from "./src/queues/testQueue";
-import jwtPlugin from "./src/plugins/jwt";
 import { userRoutes } from "./src/modules/user/userRoutes";
+import { storeRoutes } from "./src/modules/store/storeRoutes";
 import responseWrapper from "./src/plugins/responseWrapper";
-import prismaPlugin from "./src/plugins/prismaPlugin"; 
-import dotenv from "dotenv";
+import prismaPlugin from "./src/plugins/prismaPlugin";
+import jwtAuth from "./src/plugins/jwt";
+import { JwtPayload } from "./src/types/fastify";
+
 dotenv.config();
-
-
-
-
-
 
 console.log("Loaded DATABASE_URL:", process.env.DATABASE_URL || "(not found)");
 
@@ -23,13 +21,18 @@ const fastify = Fastify({
   bodyLimit: 1048576,
 });
 
+// Register plugins in the correct order
 fastify.register(responseWrapper);
-fastify.register(jwtPlugin);
-fastify.register(prismaPlugin); 
+fastify.register(prismaPlugin);
+fastify.register(jwtAuth); // JWT must be registered before routes that use it
 
-// 🛠 Register routes
+
+
+
+// Register routes
 fastify.register(otpRoutes, { prefix: "/otp" });
 fastify.register(userRoutes, { prefix: "/user" });
+fastify.register(storeRoutes, { prefix: "/store" });
 
 const schema = `
   type Query {
@@ -78,8 +81,8 @@ otpWorker.on("failed", (job, err) =>
 const start = async () => {
   try {
     await fastify.listen({ port: 4000, host: "0.0.0.0" });
-    console.log(" Server running at http://localhost:4000");
-    console.log(" GraphiQL UI at: http://localhost:4000/graphiql");
+    console.log("Server running at http://localhost:4000");
+    console.log("GraphiQL UI at: http://localhost:4000/graphiql");
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
